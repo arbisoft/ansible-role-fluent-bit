@@ -1,2 +1,13 @@
 ---
-# defaults file for ansible-role-fluent-bit
+# defaults file for ansible-role-fluent_bit
+FLUENT_BIT_APT_KEY: "https://packages.fluentbit.io/fluentbit.key"
+FLUENT_BIT_DEFAULT_SOURCE_TYPE: "{{ fluent_bit_default_source_type }}"
+FLUENT_BIT_DEFAULT_LISTEN_PORT: "{{ fluent_bit_default_listen_port }}"
+FLUENT_BIT_DEFAULT_BIND_ADDRESS: "{{ fluent_bit_default_bind_address }}"
+FLUENT_BIT_EXTRA_CONFIG: ""
+FLUENT_BIT_CONFIG_INCLUDES_DIR: "/etc/td-agent-bit/conf.d"
+FLUENT_BIT_CONFIG_DIR: "/etc/td-agent-bit/"
+FLUENT_BIT_PARSER_CONFIG: []
+FLUENT_BIT_CONFIG_INCLUDES: []
+FLUENT_BIT_DEFAULT_LISTEN_PORT: ""
+FLUENT_BIT_SERVER_ADDRESS: ""

@@ -1,0 +1,26 @@
+[SERVICE]
+    flush        5
+    daemon       Off
+    log_level    info
+    parsers_file parsers.conf
+    plugins_file plugins.conf
+    http_server  Off
+    http_listen  0.0.0.0
+    http_port    2020
+    storage.metrics on
+{% if FLUENTD_BIT_EXTRA_CONFIG is defined and FLUENTD_BIT_EXTRA_CONFIG|length %}
+{{ FLUENTD_BIT_EXTRA_CONFIG }}
+{% endif %}
+
+{% if FLUENTD_BIT_CONFIG_INCLUDES is defined and FLUENTD_BIT_CONFIG_INCLUDES|length %}
+# Include Configuration
+{% for item in FLUENTD_BIT_CONFIG_INCLUDES %}
+@include {{ item.destination }}
+{% endfor %}
+{% endif %}
+
+[OUTPUT]
+    Name fluent_bit_default_source_type
+    Match *
+    Host {{ FLUENT_BIT_SERVER_ADDRESS }}
+    Port {{ FLUENT_BIT_DEFAULT_SERVER_PORT }}

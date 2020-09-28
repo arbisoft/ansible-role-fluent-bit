@@ -1,2 +1,52 @@
 ---
-# tasks file for ansible-role-fluent-bit
+# tasks file for ansible-role-fluent_bit
+- name: Add Treasure Data Repository Key
+  apt_key:
+    url: "{{ FLUENT_BIT_APT_KEY }}"
+    state: present
+
+- name: Setup Treasure Data Package Repository
+  template:
+    src: "templates/etc/apt/sources.list.d/fluent_bit.list.j2"
+    dest: "/etc/apt/sources.list.d/fluent_bit.list"
+
+- name: Install Fluent-bit
+  apt:
+    pkg: "{{ fluent_bit_package_name }}"
+    update_cache: yes
+    state: present
+
+- name: Replace Fluent-bit Configuration
+  template:
+    src: "templates/etc/td-agent/td-agent.conf.j2"
+    dest: "{{ fluent_bit_configuration_file }}"
+
+- name: Create {{ FLUENT_BIT_CONFIG_INCLUDES_DIR }} Directory
+  file:
+    path: "{{ FLUENT_BIT_CONFIG_INCLUDES_DIR }}"
+    state: directory
+    mode: 0755
+  when: (FLUENT_BIT_CONFIG_INCLUDES is defined) and (FLUENT_BIT_CONFIG_INCLUDES|length > 0)
+
+- name: Ensure Presence of Fluentd Include Configuration
+  copy:
+    dest: "{{ item.destination }}"
+    content: |
+      {{ item.content }}
+  with_items: "{{ FLUENT_BIT_CONFIG_INCLUDES }}"
+  when: (FLUENT_BIT_CONFIG_INCLUDES is defined) and (FLUENT_BIT_CONFIG_INCLUDES|length > 0)
+
+- name: Ensure Presence of Parser Configuration
+  copy:
+    dest: "{{ item.destination }}"
+    content: |
+      {{ item.content }}
+  with_items: "{{ FLUENT_BIT_PARSER_CONFIG }}"
+  when: (FLUENT_BIT_PARSER_CONFIG is defined) and (FLUENT_BIT_PARSER_CONFIG|length > 0)
+
+
+- name: Restart Fluent-bit
+  systemd:
+    name: "{{ fluent_bit_service_name }}"
+    enabled: yes
+    state: started
