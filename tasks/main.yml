@@ -12,14 +12,14 @@
 
 - name: Install Fluent-bit
   apt:
-    pkg: "{{ fluent_bit_package_name }}"
+    pkg: "{{ FLUENT_BIT_PACKAGE_NAME }}"
     update_cache: yes
     state: present
 
 - name: Replace Fluent-bit Configuration
   template:
     src: "templates/etc/td-agent/td-agent.conf.j2"
-    dest: "{{ fluent_bit_configuration_file }}"
+    dest: "{{ FLUENT_BIT_CONFIGURATION_FILE }}"
 
 - name: Create {{ FLUENT_BIT_CONFIG_INCLUDES_DIR }} Directory
   file:
@@ -47,6 +47,6 @@
 
 - name: Restart Fluent-bit
   systemd:
-    name: "{{ fluent_bit_service_name }}"
+    name: "{{ FLUENT_BIT_SERVICE_NAME }}"
     enabled: yes
     state: started

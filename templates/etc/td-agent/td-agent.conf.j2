@@ -1,13 +1,13 @@
 [SERVICE]
-    flush        5
-    daemon       Off
-    log_level    info
-    parsers_file parsers.conf
-    plugins_file plugins.conf
-    http_server  Off
-    http_listen  0.0.0.0
-    http_port    2020
-    storage.metrics on
+    flush        {{ FB_FLUSH_TIME_INTERVAL }}
+    daemon       {{ FB_DAEMON_STATUS }}
+    log_level    {{ FB_LOG_LEVEL }}
+    parsers_file {{ FB_PARSER_FILE }}
+    plugins_file {{ FB_PLUGINS_FILE }}
+    http_server  {{ FB_HTTP_SERVER_STATUS }}
+    http_listen  {{ FB_HTTP_LISTEN }}
+    http_port    {{ FB_HTTP_PORT }}
+    storage.metrics {{ FB_STORAGE_STATUS }}
 {% if FLUENTD_BIT_EXTRA_CONFIG is defined and FLUENTD_BIT_EXTRA_CONFIG|length %}
 {{ FLUENTD_BIT_EXTRA_CONFIG }}
 {% endif %}
@@ -20,7 +20,7 @@
 {% endif %}
 
 [OUTPUT]
-    Name fluent_bit_default_source_type
+    Name {{ FLUENT_BIT_DEFAULT_SOURCE_TYPE }}
     Match *
     Host {{ FLUENT_BIT_SERVER_ADDRESS }}
     Port {{ FLUENT_BIT_DEFAULT_SERVER_PORT }}
