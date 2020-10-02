@@ -1,26 +1,15 @@
 [SERVICE]
-    flush        {{ FB_FLUSH_TIME_INTERVAL }}
-    daemon       {{ FB_DAEMON_STATUS }}
-    log_level    {{ FB_LOG_LEVEL }}
-    parsers_file {{ FB_PARSER_FILE }}
-    plugins_file {{ FB_PLUGINS_FILE }}
-    http_server  {{ FB_HTTP_SERVER_STATUS }}
-    http_listen  {{ FB_HTTP_LISTEN }}
-    http_port    {{ FB_HTTP_PORT }}
-    storage.metrics {{ FB_STORAGE_STATUS }}
+{{ FLUENT_BIT_SERVICE_CONFIG }}
 {% if FLUENTD_BIT_EXTRA_CONFIG is defined and FLUENTD_BIT_EXTRA_CONFIG|length %}
 {{ FLUENTD_BIT_EXTRA_CONFIG }}
 {% endif %}
 
-{% if FLUENTD_BIT_CONFIG_INCLUDES is defined and FLUENTD_BIT_CONFIG_INCLUDES|length %}
+{% if FLUENT_BIT_CONFIG_INCLUDES is defined and FLUENT_BIT_CONFIG_INCLUDES|length %}
 # Include Configuration
-{% for item in FLUENTD_BIT_CONFIG_INCLUDES %}
+{% for item in FLUENT_BIT_CONFIG_INCLUDES %}
 @include {{ item.destination }}
 {% endfor %}
 {% endif %}
 
 [OUTPUT]
-    Name {{ FLUENT_BIT_DEFAULT_SOURCE_TYPE }}
-    Match *
-    Host {{ FLUENT_BIT_SERVER_ADDRESS }}
-    Port {{ FLUENT_BIT_DEFAULT_SERVER_PORT }}
+{{ FLUENT_BIT_OUTPUT_CONFIG }}

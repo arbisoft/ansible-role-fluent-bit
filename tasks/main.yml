@@ -28,7 +28,7 @@
     mode: 0755
   when: (FLUENT_BIT_CONFIG_INCLUDES is defined) and (FLUENT_BIT_CONFIG_INCLUDES|length > 0)
 
-- name: Ensure Presence of Fluentd Include Configuration
+- name: Write Fluent-bit Include Configuration Files
   copy:
     dest: "{{ item.destination }}"
     content: |
@@ -36,7 +36,7 @@
   with_items: "{{ FLUENT_BIT_CONFIG_INCLUDES }}"
   when: (FLUENT_BIT_CONFIG_INCLUDES is defined) and (FLUENT_BIT_CONFIG_INCLUDES|length > 0)
 
-- name: Ensure Presence of Parser Configuration
+- name: Write Fluent-bit Parser Configuration
   copy:
     dest: "{{ item.destination }}"
     content: |
