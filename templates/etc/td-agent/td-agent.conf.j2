@@ -1,0 +1,17 @@
+{{ FLUENT_BIT_SERVICE_CONFIG }}
+
+
+{% if FLUENTD_BIT_EXTRA_CONFIG is defined and FLUENTD_BIT_EXTRA_CONFIG|length %}
+{{ FLUENTD_BIT_EXTRA_CONFIG }}
+{% endif %}
+
+{% if FLUENT_BIT_CONFIG_INCLUDES is defined and FLUENT_BIT_CONFIG_INCLUDES|length %}
+# Include Configuration
+{% for item in FLUENT_BIT_CONFIG_INCLUDES %}
+@include {{ item.destination }}
+{% endfor %}
+{% endif %}
+
+
+{{ FLUENT_BIT_OUTPUT_CONFIG }}
+
