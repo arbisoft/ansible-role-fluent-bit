@@ -1,6 +1,0 @@
----
-# vars file for ansible-role-fluent_bit
-fluent_bit_package_name: "td-agent-bit"
-fluent_bit_service_name: "{{ fluent_bit_package_name }}"
-fluent_bit_configuration_file: "/etc/td-agent-bit/td-agent-bit.conf"
-fluent_bit_default_source_type: "forward"
