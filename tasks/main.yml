@@ -19,7 +19,7 @@
 - name: Replace Fluent-bit Configuration
   template:
     src: "templates/etc/td-agent/td-agent.conf.j2"
-    dest: "{{ FLUENT_BIT_CONFIGURATION_FILE }}"
+    dest: "{{ FLUENT_BIT_CONFIG_FILE }}"
 
 - name: Create {{ FLUENT_BIT_CONFIG_INCLUDES_DIR }} Directory
   file:
