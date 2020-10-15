@@ -55,4 +55,4 @@
     name: "{{ FLUENT_BIT_SERVICE_NAME }}"
     enabled: yes
     state: started
-  when: { FLUENT_BIT_STATE is defined and FLUENT_BIT_STATE }
+  when: (FLUENT_BIT_STATE is defined) and (FLUENT_BIT_STATE)
