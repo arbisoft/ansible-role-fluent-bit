@@ -5,9 +5,19 @@
 {{ FLUENTD_BIT_EXTRA_CONFIG }}
 {% endif %}
 
+{% if FLUENT_BIT_ALL_SERVICES is defined and FLUENT_BIT_ALL_SERVICES %}
+# Include Configuration
+{% for item in FLUENT_BIT_CONFIG_INCLUDES %}
+@include {{ item.destination }}
+{% endfor %}
+{% endif %}
+
+
+
+
 {% if FLUENT_BIT_CONFIG_INCLUDES is defined and FLUENT_BIT_CONFIG_INCLUDES|length %}
 # Include Configuration
-{% if FLUENT_BIT_FOR if defined and FLUENT_BIT_FOR | length %}
+{% if FLUENT_BIT_FOR is defined and FLUENT_BIT_FOR |length %}
 {% for services in FLUENT_BIT_FOR %}
 {% for item in FLUENT_BIT_CONFIG_INCLUDES %}
 {% if service|string() == item.service|string() %}
