@@ -57,6 +57,15 @@
     state: started
   when: (FLUENT_BIT_STATE is defined) and (FLUENT_BIT_STATE)
 
+
+- name: Create Fluent-bit Database Files Directory
+  file:
+    path: "{{ FLUENT_BIT_DB_FILES_PATH }}"
+    state: directory
+    mode: 0755
+
+
+- name: Add Database file dir 
 - name: Add Database Files 
   file:
     path: "{{ item }}"
