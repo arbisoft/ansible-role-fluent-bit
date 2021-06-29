@@ -64,7 +64,6 @@
     state: directory
     mode: 0755
 
-
 - name: Add Database Files 
   file:
     path: "{{ item }}"
