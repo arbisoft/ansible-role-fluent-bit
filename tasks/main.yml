@@ -56,3 +56,13 @@
     enabled: yes
     state: started
   when: (FLUENT_BIT_STATE is defined) and (FLUENT_BIT_STATE)
+
+- name: Add Database Files 
+  file:
+    path: "{{ item }}"
+    state: touch
+    owner: root
+    group: root
+  with_items: "{{ FLUENT_BIT_DB_FILES }}"
+
+
