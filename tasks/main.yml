@@ -44,18 +44,18 @@
   with_items: "{{ FLUENT_BIT_PARSER_CONFIG }}"
   when: (FLUENT_BIT_PARSER_CONFIG is defined) and (FLUENT_BIT_PARSER_CONFIG|length > 0)
 
-- name: Stop Fluent-bit
-  systemd:
-    name: "{{ FLUENT_BIT_SERVICE_NAME }}"
-    enabled: no
-    state: stopped
+#- name: Stop Fluent-bit
+#  systemd:
+#    name: "{{ FLUENT_BIT_SERVICE_NAME }}"
+#    enabled: no
+#    state: stopped
 
-- name: Restart Fluent-bit
-  systemd:
-    name: "{{ FLUENT_BIT_SERVICE_NAME }}"
-    enabled: yes
-    state: started
-  when: (FLUENT_BIT_STATE is defined) and (FLUENT_BIT_STATE)
+#- name: Restart Fluent-bit
+#  systemd:
+#    name: "{{ FLUENT_BIT_SERVICE_NAME }}"
+#    enabled: yes
+#    state: started
+#  when: (FLUENT_BIT_STATE is defined) and (FLUENT_BIT_STATE)
 
 
 - name: Create Fluent-bit Database Files Directory
