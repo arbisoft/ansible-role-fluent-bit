@@ -36,6 +36,14 @@
   with_items: "{{ FLUENT_BIT_CONFIG_INCLUDES }}"
   when: (FLUENT_BIT_CONFIG_INCLUDES is defined) and (FLUENT_BIT_CONFIG_INCLUDES|length > 0)
 
+  - name: Write Fluent-bit Include Configuration Files for nginx
+  copy:
+    dest: "{{ item.destination }}"
+    content: |
+      {{ item.content }}
+  with_items: "{{ FLUENT_BIT_NGINX }}"
+  when: (FLUENT_BIT_NGINX is defined) and (FLUENT_BIT_NGINX|length > 0)
+
 - name: Write Fluent-bit Parser Configuration
   copy:
     dest: "{{ item.destination }}"

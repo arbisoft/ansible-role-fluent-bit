@@ -28,6 +28,10 @@
 {% endif %}
 {% endif %}
 
+{% if FLUENT_BIT_NGINX is defined and FLUENT_BIT_NGINX|length %}
+@include {{item.destination}}
+{% endif %}
+
 
 {{ FLUENT_BIT_OUTPUT_CONFIG }}
 
