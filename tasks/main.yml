@@ -36,7 +36,7 @@
   with_items: "{{ FLUENT_BIT_CONFIG_INCLUDES }}"
   when: (FLUENT_BIT_CONFIG_INCLUDES is defined) and (FLUENT_BIT_CONFIG_INCLUDES|length > 0)
 
-  - name: Write Fluent-bit Include Configuration Files for nginx
+- name: Write Fluent-bit Include Configuration Files for nginx
   copy:
     dest: "{{ item.destination }}"
     content: |
