@@ -29,7 +29,9 @@
 {% endif %}
 
 {% if FLUENT_BIT_NGINX is defined and FLUENT_BIT_NGINX|length %}
+{% for item in FLUENT_BIT_NGINX %}
 @include {{item.destination}}
+{% endfor %}
 {% endif %}
 
 
